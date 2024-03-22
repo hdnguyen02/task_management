@@ -14,15 +14,24 @@ app.use(pinia)
 app.mount('#app')
 const useStore = mainStore()
 
-onAuthStateChanged(auth, user => {
-    if (user) {
-      useStore.setCredential(user)  
+
+
+onAuthStateChanged( auth, user => {
+  if (user) {
+    useStore.setIsLogin(true)
+    useStore.setCredential(user)  
+    
+  } else {
+    useStore.setIsLogin(false)
+    useStore.setCredential(null)
+  }
+})
   
-      
-    } else {
-      useStore.setCredential(null)
-    }
-  })
+
+
+
+
+
 
 
 

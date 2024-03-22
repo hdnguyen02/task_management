@@ -8,7 +8,6 @@ import { RouterLink } from 'vue-router';
 
     async function handleSignOut() { 
         await signOut(auth)
-        useStore.setCredential(null)
     }   
 </script>
 
@@ -19,7 +18,10 @@ import { RouterLink } from 'vue-router';
             <router-link to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <span class="text-primary self-center text-3xl font-bold whitespace-nowrap">Todo</span>
             </router-link>
-            <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <div class="flex items-center gap-x-5 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <button v-show="useStore.isLogin == true" data-modal-target="m-create-task" data-modal-toggle="m-create-task" class="cursor-pointer h-8 w-8 ml-3 rounded-full bg-primary flex items-center justify-center">
+                    <i class="fa-solid fa-plus text-2xl text-white"></i>
+                </button>
                 <button v-show="useStore.getCredential" type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0" id="user-menu-button"
                     aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                     <span class="sr-only">Open user menu</span>
@@ -29,7 +31,7 @@ import { RouterLink } from 'vue-router';
                 </button>
 
                 <!-- Dropdown menu -->
-                <div v-show="useStore.getCredential" class="bg-[#374151] text-white z-50 hidden top-0 my-4 text-base rounded-lg shadow-xl"
+                <div v-show="useStore.getCredential" class="bg-gray-300  z-50 hidden top-0 my-4 text-base rounded-lg shadow-xl"
                     id="user-dropdown">
                     <div class="px-4 py-3">
                         <span class="block text-sm">{{useStore.getCredential?.displayName}}</span>
@@ -69,16 +71,16 @@ import { RouterLink } from 'vue-router';
                 <ul
                     class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                     <li>
-                        <router-link to="/" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0">Home</router-link>
+                        <router-link to="/" class="block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">Home</router-link>
                     </li>
                     <li v-if="useStore.getCredential">
-                        <a href="#"
-                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
-                            aria-current="page">Tasks</a>
+                        <router-link to="/tasks"
+                            class="block py-2 px-3 rounded md:bg-transparent md:p-0"
+                            aria-current="page">Tasks</router-link>
                     </li>
                     <li>
                         <a href="#"
-                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
+                            class="block py-2 px-3 rounded md:bg-transparent md:p-0"
                             aria-current="page">Contact</a>
                     </li>
 

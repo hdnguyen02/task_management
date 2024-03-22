@@ -5,6 +5,7 @@ import { initializeApp } from "firebase/app"
 
 
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyAZxmSzIXXvQiC3odv7dwVjMV7zViO6RKQ",
     authDomain: "to-do-list-6df6b.firebaseapp.com",
@@ -17,7 +18,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
-  
+
+
+
   export { 
     auth, db
   }

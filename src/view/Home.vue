@@ -5,7 +5,5 @@
 </script>
 
 <template>
-    <section class="">
-    
-    </section>
+    <h1>Trang home</h1>
 </template>

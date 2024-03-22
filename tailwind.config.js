@@ -4,7 +4,7 @@ export default {
   theme: {
     colors: {
       ctnarbar: '#F0F6F6',
-      primary: '#4255FF'
+      primary: '#4255FF',
     },
     extend: {},
   },

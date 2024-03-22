@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import {auth} from '../firebase'
 import {signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth"
 import mainStore from '../store'
+import router from '../router'
     let useStore = mainStore()
     let email = ref(null)
     let password = ref(null)
@@ -18,6 +19,7 @@ import mainStore from '../store'
         .then(userCredential => { 
             const user = userCredential.user
             useStore.setCredential(user)
+            router.push('/')
 
         })
         .catch(() => {
