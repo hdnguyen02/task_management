@@ -31,7 +31,7 @@ import { RouterLink } from 'vue-router';
                 </button>
 
                 <!-- Dropdown menu -->
-                <div v-show="useStore.getCredential" class="bg-gray-300  z-50 hidden top-0 my-4 text-base rounded-lg shadow-xl"
+                <div v-show="useStore.getCredential" class="bg-gray-300 font-medium z-50 hidden top-0 my-4 text-base rounded-lg"
                     id="user-dropdown">
                     <div class="px-4 py-3">
                         <span class="block text-sm">{{useStore.getCredential?.displayName}}</span>
@@ -74,9 +74,9 @@ import { RouterLink } from 'vue-router';
                         <router-link to="/" class="block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">Home</router-link>
                     </li>
                     <li v-if="useStore.getCredential">
-                        <router-link to="/tasks"
+                        <router-link to="/boards"
                             class="block py-2 px-3 rounded md:bg-transparent md:p-0"
-                            aria-current="page">Tasks</router-link>
+                            aria-current="page">Boards</router-link>
                     </li>
                     <li>
                         <a href="#"

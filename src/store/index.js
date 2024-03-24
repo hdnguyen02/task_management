@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import {db} from '../firebase'
-import { query, where,collection, getDocs   } from 'firebase/firestore'
+import { query, where,collection, getDocs, onSnapshot   } from 'firebase/firestore'
 export default defineStore('main', {
     state: () => { 
         return {
@@ -44,11 +44,30 @@ export default defineStore('main', {
             const uid = this.credential.uid
             const boardsRef = collection(db, 'boards')
 
-            const q = query(boardsRef, where('members',"array-contains", uid)) 
-            const querySnapshot = await getDocs(q)
-            querySnapshot.forEach((doc) => {
-                this.boards.push(doc.data())
-            }) 
+            const q = query(boardsRef, where('members',"array-contains", uid))
+            
+            // lắng nghe sự kiện
+            const unsubscribe = onSnapshot(q, (snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    if (change.type === "added") {
+                        this.boards.push({
+                            ...change.doc.data(),
+                            id: change.doc.id
+                        })
+                    }
+                    if (change.type === "modified") {
+                        const updateBoard = change.doc.data()
+                        for (let i = 0; i < this.boards.length; i++) {
+                            if (this.boards[i].id === change.doc.id) {
+                                this.boards[i] = updateBoard
+                            }
+                        }
+                    }
+                    if (change.type === "removed") {
+   
+                    }
+                });
+            });
         }
     },
     

@@ -14,6 +14,7 @@ async function handleSubmit() {
         description: description.value, 
         createAt: new Date(), 
         members: [useStore.getCredential.uid], // chứa uid thành viên  
+        tasks: [] // chứa dánh sách task đó
     }
     try { 
         const docRef = await addDoc(collection(db, "boards"), board)
