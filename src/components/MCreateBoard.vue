@@ -1,5 +1,5 @@
 <script setup>
-import { addDoc, and, collection } from "firebase/firestore"
+import { addDoc, collection } from "firebase/firestore"
 import {db} from "../firebase"
 import {ref} from "vue"
 import mainStore from '../store' 
