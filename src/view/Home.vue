@@ -14,28 +14,28 @@
         <div class="mt-12 flex-col lg:flex-row flex gap-12">
             <div class="rounded-lg flex-1 cursor-pointer">
                 <div class="rounded-t-lg overflow-hidden h-52">
-                    <img class="w-full" src="../assets/article-1.jfif">
+                    <img style="object-fit: cover;" class="w-full h-full" src="../assets/article-1.jfif">
                 </div>
 
-                <div class="bg-[#EDEFFF] p-4 font-medium underline rounded-b-lg">
+                <div class="bg-[#EDEFFF] p-4 font-medium underline rounded-b-lg h-24 flex items-center">
                     We work more effectively thanks to to-do-lists, why?
                 </div>
             </div>
             <div class="rounded-lg flex-1 cursor-pointer">
                 <div class="rounded-t-lg overflow-hidden h-52">
-                    <img class="w-full" src="https://www.amitree.com/wp-content/uploads/2021/08/the-pros-and-cons-of-paper-to-do-lists.jpeg">
+                    <img style="object-fit: cover;" class="w-full h-full" src="../assets/article-2.jpeg">
                 </div>
 
-                <div class="bg-[#FFF9E3] p-4 font-medium underline rounded-b-lg">
+                <div class="bg-[#FFF9E3] p-4 font-medium underline rounded-b-lg h-24 flex items-center">
                     The Best Apps for Making To-do Lists and Staying Organized
                 </div>
             </div>
             <div class="rounded-lg flex-1 cursor-pointer">
                 <div class="rounded-t-lg overflow-hidden h-52">
-                    <img class="w-full" src="https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/uploads/images/tin-tuc/172556/Originals/to-do-list-la-gi-2.jpg">
+                    <img style="object-fit: cover;" class="w-full h-full" src="../assets/article-3.webp">
                 </div>
 
-                <div class="bg-[#FCF0FF] p-4 font-medium underline rounded-b-lg">
+                <div class="bg-[#FCF0FF] p-4 font-medium underline rounded-b-lg h-24 flex items-center">
                     The 3 Best To-Do List Apps of 2023 | Reviews by Wirecutter
                 </div>
             </div>

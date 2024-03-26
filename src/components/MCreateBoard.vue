@@ -18,6 +18,8 @@ async function handleSubmit() {
     }
     try { 
         const docRef = await addDoc(collection(db, "boards"), board)
+        name.value = null
+        description.value = null
         console.log("Document written with ID: ", docRef.id)
     }
     catch(e) {
@@ -29,7 +31,7 @@ async function handleSubmit() {
 
 <template>
     <div>
-        <div id="m-create-task" tabIndex="-1" aria-hidden="true"
+        <div id="m-create-board" tabIndex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <form @submit.prevent="handleSubmit" class="relative p-4 w-full max-w-2xl max-h-full">
                 <div class="relative bg-white rounded-lg shadow">
@@ -39,7 +41,7 @@ async function handleSubmit() {
                         </h3>
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                            data-modal-hide="m-create-task">
+                            data-modal-hide="m-create-board">
                             <i class="text-xl fa-solid fa-xmark"></i>
                             <span class="sr-only">Close modal</span>
                         </button>
@@ -59,9 +61,9 @@ async function handleSubmit() {
                         </div>
                     </div>
                     <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-                        <button type="submit" data-modal-hide="m-create-task"
+                        <button type="submit" data-modal-hide="m-create-board"
                             class="text-white bg-primary focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">Tạo</button>
-                        <button data-modal-hide="m-create-task" type="button"
+                        <button data-modal-hide="m-create-board" type="button"
                             class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">Hủy</button>
                     </div>
                 </div>

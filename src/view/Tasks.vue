@@ -4,14 +4,12 @@ import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import { doc, updateDoc } from "firebase/firestore"
 import { db } from '../firebase'
-
+import PopupDeleteBoard from '../components/PopupDeleteBoard.vue'
 
 const route = useRoute()
 const useStore = mainStore()
-
-let index = route.params.index
-const board = ref(useStore.getBoards[index])
-let isNewItem = ref(false)
+const isNewItem = ref(false)
+const idBoard = route.params.idBoard
 
 
 let inputCreateTask = ref({
@@ -23,9 +21,9 @@ let inputCreateTask = ref({
 })
 
 
-function handleEditName(index) {
-    const span = document.getElementById(`span-name-task-${index}`)
-    const input = document.getElementById(`input-name-task-${index}`)
+function handleEditName(indexTask) {
+    const span = document.getElementById(`span-name-task-${indexTask}`)
+    const input = document.getElementById(`input-name-task-${indexTask}`)
     setTimeout(() => {
         input.value = span.textContent
         input.focus()
@@ -42,9 +40,9 @@ async function handleBlurEditName(indexTask) {
     input.style.display = "none"
     span.style.display = "block"
     if (valueInput.trim() == "" || valueOld == valueInput) return // rỗng hoặc trùng với giá trị trước đó. 
-    const board = useStore.getBoards[index]
+    const board = useStore.getBoards[idBoard]
     board.tasks[indexTask].name = valueInput
-    const boardRef = doc(db, "boards", board.id)
+    const boardRef = doc(db, "boards", idBoard)
     await updateDoc(boardRef, board)
 }
 
@@ -68,57 +66,45 @@ async function handleBlurCreateTask() {
         status: inputCreateTask.value.status
     }
     inputCreateTask.value.name = null
-    const updateBoard = JSON.parse(JSON.stringify(useStore.getBoards[index]));
+    const updateBoard = JSON.parse(JSON.stringify(useStore.getBoards[idBoard]));
     updateBoard.tasks.push(task)
-    const boardRef = doc(db, "boards", updateBoard.id)
+    const boardRef = doc(db, "boards", idBoard)
     await updateDoc(boardRef, updateBoard)
 }
 
-function handleEditStatus(index) {
-    const dropdown = document.getElementById(`div-dropdown-status-task-${index}`)
-    if (dropdown.style.display == "block") { 
-        dropdown.style.display = "none" 
-    }
-    else { 
-        dropdown.style.display = "block"
-    }
+function handleEditStatus(indexTask) {
+    const dropdown = document.getElementById(`div-dropdown-status-task-${indexTask}`)
+    if (dropdown.style.display == "block") dropdown.style.display = "none"
+    else dropdown.style.display = "block"
 }
 
 async function handleChooseStatus(indexTask, item) {
-
-    const board = useStore.getBoards[index]
+    const board = useStore.getBoards[idBoard]
     const statusOld = board.tasks[indexTask].status 
     const dropdown = document.getElementById(`div-dropdown-status-task-${indexTask}`)
     dropdown.style.display = "none"
     if (statusOld == item) return
     board.tasks[indexTask].status = item
-    const boardRef = doc(db, "boards", board.id)
+    const boardRef = doc(db, "boards", idBoard)
     await updateDoc(boardRef, board)
 }
 
 async function handleChoosePriority(indexTask, priority) {   
-    const board = useStore.getBoards[index]
-
+    const board = useStore.getBoards[idBoard]
     const priorityOld = board.tasks[indexTask].priority 
-    if (priority == priorityOld){
-        console.log("Giống priority")
-        return
-    }  
+    if (priority == priorityOld)return 
     board.tasks[indexTask].priority = priority
-    const boardRef = doc(db, "boards", board.id)
+    const boardRef = doc(db, "boards", idBoard)
     await updateDoc(boardRef, board)
 }
 
 async function handleBlurEditDate(indexTask, event) {
     let dueDate = event.target.value
-    const board = useStore.getBoards[index]
+    const board = useStore.getBoards[idBoard]
     const dueDateOld = board.tasks[indexTask].dueDate 
-    if (dueDate == dueDateOld) {
-        console.log("Trùng duedate")
-        return
-    }
+    if (dueDate == dueDateOld) return
     board.tasks[indexTask].dueDate = dueDate
-    const boardRef = doc(db, "boards", board.id)
+    const boardRef = doc(db, "boards", idBoard)
     await updateDoc(boardRef, board)
 }
 
@@ -140,18 +126,14 @@ let infoStatus = {
 </script>
 
 <template>
-
-
-
-
-    <div class="pb-24">
-        <div class="flex justify-between">
+    <div v-if="useStore.getBoards[idBoard]" class="">
+        <div class="flex justify-between items-center">
             <div class="flex items-center gap-x-3">
-                <h3 class="font-medium text-3xl">{{ board.name }}</h3>
+                <h3 class="font-medium text-3xl">{{ useStore.getBoards[idBoard].name }}</h3>
                 <i class="fa-regular fa-star text-xl pt-1"></i>
             </div>
-            <div>
-                <button class=""><i class="fa-solid fa-ellipsis text-lg"></i></button>
+            <div class="flex gap-x-6">
+                <PopupDeleteBoard :idBoard="idBoard"/>
             </div>
         </div>
         <div class="mt-8 flex flex-col lg:flex-row lg:justify-between gap-8">
@@ -195,6 +177,7 @@ let infoStatus = {
         <hr class="border-gray-200 my-12">
         <div class="">
             <div class="">
+                
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 table-fixed">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -216,12 +199,12 @@ let infoStatus = {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(task, index) in useStore.getBoards[index].tasks" :key="index"
+                        <tr v-for="(task, indexTask) in useStore.getBoards[idBoard].tasks" :key="idBoard"
                             class="bg-white border-b border-gray-200">
-                            <th @click="handleEditName(index)" scope="row"
+                            <th @click="handleEditName(indexTask)" scope="row"
                                 class="px-6 h-16 font-medium text-gray-900 whitespace-nowrap">
-                                <span :id="`span-name-task-${index}`">{{ task.name }}</span>
-                                <input type="text" @blur="handleBlurEditName(index)" :id="`input-name-task-${index}`"
+                                <span :id="`span-name-task-${indexTask}`">{{ task.name }}</span>
+                                <input type="text" @blur="handleBlurEditName(indexTask)" :id="`input-name-task-${indexTask}`"
                                     class="hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg h-8"
                                     required />
                             </th>
@@ -229,21 +212,21 @@ let infoStatus = {
                                 {{ task.owners == null ? "None" : "hdnguyen" }}
                             </td>
                             <td class="px-6 h-16 flex gap-x-2 items-center">
-                                <i @click="handleChoosePriority(index, item)" v-for="item in 5" :class="{ 'star-yellow': item <= task.priority }" class="fa-solid fa-star cursor-pointer"></i>
+                                <i @click="handleChoosePriority(indexTask, item)" v-for="item in 5" :class="{ 'star-yellow': item <= task.priority }" class="fa-solid fa-star cursor-pointer"></i>
                             </td>
                             <td class="px-6 h-16 cursor-pointer">
-                                <input @blur="handleBlurEditDate(index, $event)" :value="task.dueDate" type="date" class="border-0 p-0">
+                                <input @blur="handleBlurEditDate(indexTask, $event)" :value="task.dueDate" type="date" class="border-0 p-0">
                             </td>
                             <td class="relative px-6 h-16 cursor-pointer">
-                                <button @click="handleEditStatus(index)" :style="`background-color: ${infoStatus[task.status].color};`"
+                                <button @click="handleEditStatus(indexTask)" :style="`background-color: ${infoStatus[task.status].color};`"
                                     class="text-white text-sm h-8 w-24 font-medium">
                                     {{ infoStatus[task.status].content }}
                                 </button>
                             
-                                <div :id="`div-dropdown-status-task-${index}`" class="bg-[#465463] hidden absolute top-16 z-10 divide-y divide-gray-100 rounded-lg w-44">
+                                <div :id="`div-dropdown-status-task-${indexTask}`" class="bg-[#465463] hidden absolute top-16 z-10 divide-y divide-gray-100 rounded-lg w-44">
                                     <ul class="flex flex-col items-center gap-y-3 py-6 text-sm text-gray-700">
                                         <li class="mb-2" v-for="(value, key) in infoStatus" :key="value.content">
-                                            <button @click="handleChooseStatus(index, key)" :style="`background-color: ${value.color};`" class="text-white text-sm h-8 w-24">
+                                            <button @click="handleChooseStatus(indexTask, key)" :style="`background-color: ${value.color};`" class="text-white text-sm h-8 w-24">
                                                 {{ value.content }}
                                             </button>
                                         </li>
@@ -282,6 +265,14 @@ let infoStatus = {
                         </tr>
                     </tbody>
                 </table>
+                <div v-if="useStore.getBoards[idBoard].tasks == 0" class="mt-12 flex flex-col items-center">
+                    <div class="w-40">
+                        <img class="w-full h-full" src="https://cdni.iconscout.com/illustration/premium/thumb/todo-list-5523307-4609476.png?f=webp">
+                    </div>
+                    <span class="text-primary">
+                        You have not created any tasks yet
+                    </span>
+                </div>
             </div>
         </div>
     </div>

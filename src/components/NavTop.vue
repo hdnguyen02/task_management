@@ -19,7 +19,7 @@ import { RouterLink } from 'vue-router';
                 <span class="text-primary self-center text-3xl font-bold whitespace-nowrap pb-2">todo</span>
             </router-link>
             <div class="flex items-center gap-x-5 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                <button v-show="useStore.isLogin == true" data-modal-target="m-create-task" data-modal-toggle="m-create-task" class="cursor-pointer h-8 w-8 ml-3 rounded-full bg-primary flex items-center justify-center">
+                <button v-show="useStore.isLogin == true" data-modal-target="m-create-board" data-modal-toggle="m-create-board" class="cursor-pointer h-8 w-8 ml-3 rounded-full bg-primary flex items-center justify-center">
                     <i class="fa-solid fa-plus text-2xl text-white"></i>
                 </button>
                 <button v-show="useStore.getCredential" type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0" id="user-menu-button"
@@ -79,9 +79,9 @@ import { RouterLink } from 'vue-router';
                             aria-current="page">Boards</router-link>
                     </li>
                     <li>
-                        <a href="#"
+                        <router-link to="/contact"
                             class="block py-2 px-3 rounded md:bg-transparent md:p-0"
-                            aria-current="page">Contact</a>
+                            aria-current="page">Contact</router-link>
                     </li>
 
                     
@@ -89,4 +89,4 @@ import { RouterLink } from 'vue-router';
             </div>
         </div>
     </nav>
-</template>../store
+</template>

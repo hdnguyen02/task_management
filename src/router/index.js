@@ -4,6 +4,7 @@ import SignUp from '../view/SignUp.vue'
 import Home from '../view/Home.vue'
 import Boards from "../view/Boards.vue"
 import Tasks from "../view/Tasks.vue"
+import Contact from '../view/Contact.vue'
 import { auth } from '../firebase'
 
 
@@ -33,7 +34,12 @@ const routes = [
     },
   },
   {
-    path: '/boards/:index',
+    path: '/contact', 
+    name: 'Contact',
+    component: Contact
+  },
+  {
+    path: '/boards/:idBoard',
     name: 'Tasks',
     component: Tasks,
     meta: {
