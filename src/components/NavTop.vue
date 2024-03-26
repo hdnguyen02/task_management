@@ -16,7 +16,7 @@ import { RouterLink } from 'vue-router';
     <nav class="bg-ctnarbar fixed top-0 left-0 right-0">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <router-link to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <span class="text-primary self-center text-3xl font-bold whitespace-nowrap">Todo</span>
+                <span class="text-primary self-center text-3xl font-bold whitespace-nowrap pb-2">todo</span>
             </router-link>
             <div class="flex items-center gap-x-5 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <button v-show="useStore.isLogin == true" data-modal-target="m-create-task" data-modal-toggle="m-create-task" class="cursor-pointer h-8 w-8 ml-3 rounded-full bg-primary flex items-center justify-center">
@@ -31,7 +31,7 @@ import { RouterLink } from 'vue-router';
                 </button>
 
                 <!-- Dropdown menu -->
-                <div v-show="useStore.getCredential" class="bg-gray-300 font-medium z-50 hidden top-0 my-4 text-base rounded-lg"
+                <div v-show="useStore.getCredential" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" class="bg-white font-medium z-50 hidden top-0 my-4 text-base rounded-lg"
                     id="user-dropdown">
                     <div class="px-4 py-3">
                         <span class="block text-sm">{{useStore.getCredential?.displayName}}</span>
@@ -48,7 +48,7 @@ import { RouterLink } from 'vue-router';
                 </ul>
                 </div>
                 <div v-show="!useStore.getCredential" class="flex gap-x-3">
-                    <router-link to="/sign-in" class="bg-transparent hover:bg-blue-500 text-blue-700 font-medium hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded">
+                    <router-link to="/sign-up" class="bg-transparent hover:bg-blue-500 text-blue-700 font-medium hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded">
                         Sign up
                     </router-link>  
                     <router-link to="/sign-in" class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-1 px-4 rounded">

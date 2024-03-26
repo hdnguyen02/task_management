@@ -1,30 +1,34 @@
 <script setup>  
 import { ref } from 'vue'
 import {auth} from '../firebase'
-import {signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth"
-import mainStore from '../store'
+import {signInWithEmailAndPassword, setPersistence, browserLocalPersistence, 
+    browserSessionPersistence, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import router from '../router'
-    let useStore = mainStore()
     let email = ref(null)
     let password = ref(null)
     let isRemember = ref(false)
-    let isError = ref(false)
+    let messageError = ref(null)
 
-    function handleSignIn()  { 
-        const persistenceType  = isRemember.value === true ? browserLocalPersistence : browserSessionPersistence;
-        setPersistence(auth, persistenceType)
-        .then(() => {
-            return signInWithEmailAndPassword(auth, email.value, password.value)
-        })
-        .then(userCredential => { 
-            const user = userCredential.user
-            useStore.setCredential(user)
+    async function handleSignInGoogle() {
+        try {
+            const provider = new GoogleAuthProvider()
+            await signInWithPopup(auth, provider)
             router.push('/')
+        }
+        catch(error) {} 
+    }
 
-        })
-        .catch(() => {
-            isError.value = true
-        })
+    async function handleSignInEmailPassword()  { 
+    
+        const persistenceType  = isRemember.value === true ? browserLocalPersistence : browserSessionPersistence
+        try {
+            await setPersistence(auth, persistenceType)
+            await signInWithEmailAndPassword(auth, email.value, password.value)
+            router.push('/')
+        }
+        catch(error) {
+            messageError.value = error.message
+        }
     }
     
     
@@ -35,10 +39,10 @@ import router from '../router'
         <div class="flex items-center justify-center px-6 py-8 mx-auto lg:py-0">
             <div
                 class="w-full bg-white rounded-lg md:mt-0 sm:max-w-md xl:p-0">
-                <div class="bg-gray-100 shadow-md rounded-lg space-y-4 sm:p-8 md:px-6 md:py-12">
+                <div style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" class="bg-white rounded-lg space-y-4 px-6 py-12">
                     <div class="flex flex-col items-center">
                         <div class="flex flex-col w-full">
-                            <button class="flex items-center justify-center gap-x-1 text-blue-700 font-medium  py-2 px-2 border border-blue-500 rounded-lg">
+                            <button @click="handleSignInGoogle" class="flex items-center justify-center gap-x-1 text-blue-700 font-medium  py-2 px-2 border border-blue-500 rounded-lg">
                                 <img class="w-6 h-6" src="../assets/icon-google.png">
                                 <span>Sign in with google</span> 
                             </button>
@@ -49,7 +53,7 @@ import router from '../router'
                         class="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                         Sign in to your account
                     </p>
-                    <form @submit.prevent="handleSignIn" class="space-y-4 md:space-y-6" action="#">
+                    <form @submit.prevent="handleSignInEmailPassword" class="space-y-4 md:space-y-6" action="#">
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your
                                 email</label>
@@ -65,7 +69,7 @@ import router from '../router'
                                 required>
                         </div>
                         <div>
-                            <span v-if="isError" class="text-red-500 text-sm">Auth/invalid-credential</span>
+                            <span  class="text-red-500 text-sm">{{messageError}}</span>
                         </div>
                         <div class="flex items-center justify-between">
                             <div class="flex items-start">
@@ -87,7 +91,7 @@ import router from '../router'
                             in</button>
                         <p class="text-sm text-gray-500 text-center">
                                 Don’t have an account yet? 
-                                <a href="#" class="font-medium text-primary hover:underline">Sign up</a>
+                                <router-link to="/sign-up" class="font-medium text-primary hover:underline">Sign up</router-link>
                         </p>
                     </form>
                 </div>

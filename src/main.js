@@ -22,8 +22,7 @@ onAuthStateChanged( auth, user => {
     useStore.setCredential(user)  
     
   } else {
-    useStore.setIsLogin(false)
-    useStore.setCredential(null)
+    useStore.handleSignOut()
   }
 })
   

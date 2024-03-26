@@ -37,6 +37,11 @@ export default defineStore('main', {
                 }
             }
         }, 
+        handleSignOut() {
+            this.credential = null
+            this.boards = null
+            this.isLogin = false
+        },
         async fetchBoards() { 
             if (this.boards != null) return 
             console.log("fetch boards")

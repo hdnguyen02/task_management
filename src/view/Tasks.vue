@@ -141,58 +141,59 @@ let infoStatus = {
 
 <template>
 
+
+
+
     <div class="pb-24">
         <div class="flex justify-between">
             <div class="flex items-center gap-x-3">
                 <h3 class="font-medium text-3xl">{{ board.name }}</h3>
-                <i class="fa-regular fa-star text-xl pt-1 opacity-60"></i>
+                <i class="fa-regular fa-star text-xl pt-1"></i>
             </div>
             <div>
-                <button class=""><i class="fa-solid fa-ellipsis text-lg opacity-60"></i></button>
+                <button class=""><i class="fa-solid fa-ellipsis text-lg"></i></button>
             </div>
         </div>
-        <div class="mt-8 flex justify-between gap-x-8 items-center">
+        <div class="mt-8 flex flex-col lg:flex-row lg:justify-between gap-8">
             <div class="flex gap-x-8">
                 <button @click="handleCreateTask"
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-1 px-4 rounded inline-flex gap-x-3 items-center">
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-1 px-6 rounded inline-flex gap-x-3 items-center">
                     <i style="font-weight: 100;" class="fa-solid fa-plus"></i>
-                    <span>New item</span>
                 </button>
 
                 <input type="search"
-                    class="block w-56 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                    class="block w-full lg:w-56 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Search tasks" />
             </div>
 
-            <div class="flex gap-x-8">
+            <div class="flex gap-x-2 justify-between lg:gap-x-8">
                 <div class="flex items-center gap-x-2 cursor-pointer">
-                    <i class="fa-solid fa-users-line pt-1 opacity-60"></i>
+                    <i class="fa-solid fa-users-line pt-1"></i>
                     <span class="">Person</span>
                 </div>
 
                 <div class="flex items-center gap-x-2 cursor-pointer">
-                    <i class="fa-solid fa-filter opacity-60"></i>
+                    <i class="fa-solid fa-filter"></i>
                     <span class="">Filter</span>
                 </div>
                 <div class="flex items-center gap-x-2 cursor-pointer">
-                    <i class="fa-solid fa-arrow-up-a-z opacity-60"></i>
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
                     <span class="">Sort</span>
                 </div>
 
                 <div class="flex items-center gap-x-2 cursor-pointer">
-                    <i class="fa-solid fa-share-nodes opacity-60"></i>
+                    <i class="fa-solid fa-share-nodes"></i>
                     <span class="">Share</span>
                 </div>
 
                 <div class="flex items-center gap-x-2 cursor-pointer">
-                    <i class="fa-solid fa-gear opacity-60"></i>
+                    <i class="fa-solid fa-gear"></i>
                     <span class="">Setting</span>
                 </div>
             </div>
         </div>
-        <div class="mt-12">
-
-
+        <hr class="border-gray-200 my-12">
+        <div class="">
             <div class="">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 table-fixed">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -235,7 +236,7 @@ let infoStatus = {
                             </td>
                             <td class="relative px-6 h-16 cursor-pointer">
                                 <button @click="handleEditStatus(index)" :style="`background-color: ${infoStatus[task.status].color};`"
-                                    class="text-white text-sm h-8 w-24">
+                                    class="text-white text-sm h-8 w-24 font-medium">
                                     {{ infoStatus[task.status].content }}
                                 </button>
                             
@@ -246,15 +247,13 @@ let infoStatus = {
                                                 {{ value.content }}
                                             </button>
                                         </li>
-
                                     </ul>
                                 </div>
                             </td>
                         </tr>
 
-
                         <!-- New item -->
-                        <tr v-show="isNewItem" class="border-b">
+                        <tr v-show="isNewItem">
                             <th scope="row"
                                 class="px-6 h-16 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <input v-model="inputCreateTask.name" @blur="handleBlurCreateTask" type="text"
@@ -276,7 +275,7 @@ let infoStatus = {
                             </td>
                             <td class="px-6 h-16">
                                 <button :style="`background-color: ${infoStatus.notStarted.color};`"
-                                    class="text-white text-sm h-8 w-24">
+                                    class="text-white text-sm h-8 w-24 font-medium">
                                     {{ infoStatus.notStarted.content }}
                                 </button>
                             </td>

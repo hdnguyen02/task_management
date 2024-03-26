@@ -9,7 +9,7 @@ const useStore = mainStore()
 <template>
   <div v-show="useStore.getIsLogin == true || useStore.getIsLogin == false">
     <NavTop/>
-    <div class="mt-32 mx-6 md:mx-36">
+    <div class="my-32 mx-6 md:mx-36">
       <RouterView></RouterView>     
     </div>
     <MCreateBoard/>
