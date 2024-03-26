@@ -1,22 +1,21 @@
 <script setup>  
 import { ref } from 'vue'
 import {auth} from '../firebase'
-import {signInWithEmailAndPassword, setPersistence, browserLocalPersistence, 
-    browserSessionPersistence, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import {signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from 'firebase/auth'
 import router from '../router'
     let email = ref(null)
     let password = ref(null)
     let isRemember = ref(false)
     let messageError = ref(null)
 
-    async function handleSignInGoogle() {
-        try {
-            const provider = new GoogleAuthProvider()
-            await signInWithPopup(auth, provider)
-            router.push('/')
-        }
-        catch(error) {} 
-    }
+    // async function handleSignInGoogle() {
+    //     try {
+    //         const provider = new GoogleAuthProvider()
+    //         await signInWithPopup(auth, provider)
+    //         router.push('/')
+    //     }
+    //     catch(error) {} 
+    // }
 
     async function handleSignInEmailPassword()  { 
     
@@ -35,25 +34,25 @@ import router from '../router'
 </script>
 
 <template>
-    <section class="">
+    <section>
         <div class="flex items-center justify-center px-6 py-8 mx-auto lg:py-0">
             <div
                 class="w-full bg-white rounded-lg md:mt-0 sm:max-w-md xl:p-0">
                 <div style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" class="bg-white rounded-lg space-y-4 px-6 py-12">
-                    <div class="flex flex-col items-center">
+                    <!-- Handle sign in google -->
+                    <!-- <div class="flex flex-col items-center">
                         <div class="flex flex-col w-full">
                             <button @click="handleSignInGoogle" class="flex items-center justify-center gap-x-1 text-blue-700 font-medium  py-2 px-2 border border-blue-500 rounded-lg">
                                 <img class="w-6 h-6" src="../assets/icon-google.png">
                                 <span>Sign in with google</span> 
                             </button>
                         </div>
-
-                    </div>
+                    </div> -->
                     <p 
                         class="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                         Sign in to your account
                     </p>
-                    <form @submit.prevent="handleSignInEmailPassword" class="space-y-4 md:space-y-6" action="#">
+                    <form @submit.prevent="handleSignInEmailPassword" class="space-y-4 md:space-y-8" action="#">
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your
                                 email</label>
@@ -98,4 +97,4 @@ import router from '../router'
             </div>
         </div>
     </section>
-</template>../store
+</template>

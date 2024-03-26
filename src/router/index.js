@@ -5,6 +5,7 @@ import Home from '../view/Home.vue'
 import Boards from "../view/Boards.vue"
 import Tasks from "../view/Tasks.vue"
 import Contact from '../view/Contact.vue'
+import PageNotFound from '../view/PageNotFound.vue'
 import { auth } from '../firebase'
 
 
@@ -45,6 +46,11 @@ const routes = [
     meta: {
       requiresAuth: true // yêu cầu xác thực
     }
+  }, 
+  {
+    path: '/:catchAll(.*)', 
+    name: 'PageNotFound', 
+    component: PageNotFound
   }
 
 ]
