@@ -1,25 +1,21 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import SignIn from '../view/SignIn.vue'
-import SignUp from '../view/SignUp.vue'
+
 import Home from '../view/Home.vue'
 import Boards from "../view/Boards.vue"
 import Tasks from "../view/Tasks.vue"
-import Contact from '../view/Contact.vue'
 import PageNotFound from '../view/PageNotFound.vue'
 import { auth } from '../firebase'
-
-
 
 const routes = [
   {
     path: '/sign-in',
     name: 'SignIn',
-    component: SignIn
+    component: () => import('../view/SignIn.vue'), 
   },
   {
     path: '/sign-up', 
     name: 'SignUp', 
-    component: SignUp
+    component: () => import('../view/SignUp.vue')
   },
   {
     path: '/',
@@ -37,21 +33,36 @@ const routes = [
   {
     path: '/contact', 
     name: 'Contact',
-    component: Contact
+    component: import('../view/Contact.vue')
   },
+  {
+    path: '/setting',
+    name: 'Setting', 
+    component: () => import('../view/Setting.vue'),
+    meta: {
+      requiresAuth: true 
+    }
+  }, 
   {
     path: '/boards/:idBoard',
     name: 'Tasks',
     component: Tasks,
     meta: {
-      requiresAuth: true // yêu cầu xác thực
+      requiresAuth: true 
     }
   }, 
   {
+    path: '/reset-password', 
+    name: 'ResetPassword',
+    component: () => import('../view/ResetPassword.vue')
+
+  },
+  {
     path: '/:catchAll(.*)', 
     name: 'PageNotFound', 
-    component: PageNotFound
-  }
+    component: () => import('../view/PageNotFound.vue')
+  }, 
+ 
 
 ]
 

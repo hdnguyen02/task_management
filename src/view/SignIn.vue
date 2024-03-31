@@ -80,10 +80,10 @@ import router from '../router'
                                 <div class="ml-3 text-sm">
                                     <label for="remember" class="text-gray-500">Remember me</label>
                                 </div>
-                            </div>
-                            <a href="#"
+                        </div>
+                            <router-link to="/reset-password"
                                 class="text-sm font-medium text-primary-600 hover:underline">Forgot
-                                password?</a>
+                                password?</router-link>
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-primary focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign

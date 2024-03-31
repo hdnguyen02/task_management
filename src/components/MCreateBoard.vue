@@ -1,28 +1,28 @@
 <script setup>
 import { addDoc, collection } from "firebase/firestore"
-import {db} from "../firebase"
-import {ref} from "vue"
-import mainStore from '../store' 
+import { db } from "../firebase"
+import { ref } from "vue"
+import mainStore from '../store'
 
 let useStore = mainStore()
-let name = ref(null) 
+let name = ref(null)
 let description = ref(null)
 
 async function handleSubmit() {
     let board = {
-        name: name.value, 
-        description: description.value, 
-        createAt: new Date(), 
+        name: name.value,
+        description: description.value,
+        createAt: new Date(),
         members: [useStore.getCredential.uid], // chứa uid thành viên  
-        tasks: [] 
+        tasks: []
     }
-    try { 
+    try {
         const docRef = await addDoc(collection(db, "boards"), board)
         name.value = null
         description.value = null
         console.log("Document written with ID: ", docRef.id)
     }
-    catch(e) {
+    catch (e) {
         console.error("Error adding document: ", e);
     }
 }
@@ -46,14 +46,14 @@ async function handleSubmit() {
                             <span class="sr-only">Close modal</span>
                         </button>
                     </div>
-                    <div  class="p-4 md:p-5 space-y-4">
+                    <div class="p-4 md:p-5 space-y-4">
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">Name board<span
                                     class='text-red-500'>*</span></label>
                             <input v-model="name" type="text"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 placeholder="To do project" required />
-                        </div>  
+                        </div>
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">description board</label>
                             <input v-model="description" type="text"

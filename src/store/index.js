@@ -4,10 +4,10 @@ import { query, where, collection, getDocs, onSnapshot } from 'firebase/firestor
 export default defineStore('main', {
     state: () => {
         return {
-            isLogin: null, // chưa xác định được trạng thái đăng nhập hay chưa
-            credential: null, // chứa thông tin đăng nhập người dùng
-            boards: null, // thông tin về các boards. 
-            isDoneFetchBoards: false
+            isLogin: null, // xác định trạng thái đăng nhập
+            credential: null, // thông tin của người dùng
+            boards: null, 
+            isDoneFetchBoards: false    
         }
     },
     getters: {
@@ -26,19 +26,23 @@ export default defineStore('main', {
     },
 
     actions: {
+        setDisplayName(value) { 
+            this.credential.displayName = value
+        }, 
         setIsLogin(value) {
             this.isLogin = value
         },
         setCredential(user) {
             if (user === null) {
                 this.credential = null
+                return 
             }
-            else {
-                this.credential = {
-                    email: user.email,
-                    uid: user.uid,
-                    displayName: user.displayName
-                }
+
+            this.credential = {
+                email: user.email,
+                uid: user.uid,
+                displayName: user.displayName
+    
             }
         },
         handleSignOut() {
@@ -52,10 +56,7 @@ export default defineStore('main', {
             this.boards = {}
             const uid = this.credential.uid
             const boardsRef = collection(db, 'boards')
-
             const q = query(boardsRef, where('members', "array-contains", uid))
-
-            // lắng nghe sự kiện
             onSnapshot(q, (snapshot) => {
                 snapshot.docChanges().forEach((change) => {
                     if (change.type === "added") {
@@ -65,7 +66,6 @@ export default defineStore('main', {
                         }
                     }
                     if (change.type === "modified") {
-                        // update lại. 
                         this.boards[change.doc.id] = change.doc.data()
                     }
                     if (change.type === "removed") {
