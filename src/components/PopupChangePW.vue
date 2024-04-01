@@ -83,7 +83,7 @@ async function handleChangePassword() {
                 <label class="block mb-2 text-sm font-medium">
                     Curent Password
                 </label>
-                <input v-model="curentPassword" type="text" minlength="6"
+                <input v-model="curentPassword" type="password" minlength="6"
                     class="w-80 bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                     required />
             </div>
@@ -92,7 +92,7 @@ async function handleChangePassword() {
                 <label class="block mb-2 text-sm font-medium">
                     New password
                 </label>
-                <input v-model="newPassword" type="text" minlength="6"
+                <input v-model="newPassword" type="password" minlength="6"
                     class="w-80 bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                     required />
             </div>
@@ -100,7 +100,7 @@ async function handleChangePassword() {
                 <label for="email" class="block mb-2 text-sm font-medium">
                     Confirm new password
                 </label>
-                <input v-model="confirmPassword" type="text" minlength="6"
+                <input v-model="confirmPassword" type="password" minlength="6"
                     class="w-80 bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                     required />
             </div>

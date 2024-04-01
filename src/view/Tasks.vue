@@ -230,8 +230,7 @@ let infoStatus = {
                                 <span :id="`span-name-task-${indexTask}`">{{ task.name }}</span>
                                 <input type="text" @blur="handleBlurEditName(indexTask)"
                                     :id="`input-name-task-${indexTask}`"
-                                    class="hidden w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg h-8"
-                                     />
+                                    class="hidden w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg h-8" />
                             </th>
                             <td class="px-6 h-16">
                                 {{ task.owners == null ? "None" : "hdnguyen" }}

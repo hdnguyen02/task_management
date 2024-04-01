@@ -1,7 +1,7 @@
 <template>
     <section>
-        <div style="margin-top: -52px;" class="mx-[-24px] md:mx-[-144px]">
-            <img src="../assets/todolist.webp" class="w-full" alt="">
+        <div style="margin-top: -70px;" class="mx-[-24px] md:mx-[-144px]">
+            <img src="../assets/article-2.jpeg" class="w-full" alt="">
         </div>
         <div class="mt-12 flex-col items-center lg:flex-row flex gap-12">
             <div class="rounded-lg flex-1 cursor-pointer w-72">
@@ -15,7 +15,7 @@
             </div>
             <div class="rounded-lg flex-1 cursor-pointer w-72">
                 <div class="rounded-t-lg overflow-hidden h-52">
-                    <img style="object-fit: cover;" class="w-full h-full" src="../assets/article-2.jpeg">
+                    <img style="object-fit: cover;" class="w-full h-full" src="../assets/todolist.webp">
                 </div>
 
                 <div class="bg-[#FFF9E3] p-4 font-medium underline rounded-b-lg h-24 flex items-center">

@@ -12,7 +12,7 @@ async function handleSubmit() {
     let board = {
         name: name.value,
         description: description.value,
-        createAt: new Date(),
+        createAt: new Date().toISOString().slice(0, 10).replace(/\//g, "-"),
         members: [useStore.getCredential.uid], // chứa uid thành viên  
         tasks: []
     }
@@ -52,7 +52,7 @@ async function handleSubmit() {
                                     class='text-red-500'>*</span></label>
                             <input v-model="name" type="text"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                placeholder="To do project" required />
+                                required />
                         </div>
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">description board</label>
