@@ -100,7 +100,7 @@ Có đăng nhập thì dĩ nhiên là phải có đăng ký rồi. Tính năng n
 Người dùng không muốn mỗi lần kết thúc session lại phải đăng nhập lại, đừng lo! Website này hỗ trợ bạn không phải đăng nhập cho lần truy cập sau.
 
 <p align="center">
-    <img src="src/assets/readme/Remember me.PNG" />
+    <img src="src/assets/readme/Đăng nhập.PNG" />
 </p>
 <h3 align="center">
 
@@ -191,27 +191,8 @@ Website sẽ xác nhận lại bạn có thực sự muốn xóa đi thư mục 
 **Thêm task** => click vào icon + ở dưới table task
 
 Người dùng điền tên task và thông tin cơ bản Owner, Priority, Due Date, Status
-<p align="center">
-    <img src="src/assets/readme/Thêm task.PNG" />
-</p>
 
-**Hiệu chỉnh task** => click vào item  
-
-<p align="center">
-    <img src="src/assets/readme/Hiệu chỉnh tên task.PNG" />
-</p>
-
-<p align="center">
-    <img src="src/assets/readme/Hiệu chỉnh độ ưu tiên.PNG" />
-</p>
-
-<p align="center">
-    <img src="src/assets/readme/Hiểu chỉnh date.PNG" />
-</p>
-
-<p align="center">
-    <img src="src/assets/readme/Hiệu chỉnh status.PNG" />
-</p>
+**Hiệu chỉnh task** => click vào item tương ứng
 
 ## [**9. Setting**](#9-setting)
 
