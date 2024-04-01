@@ -177,9 +177,6 @@ Chi tiết của thư mục task có rất nhiều chức năng, Nhưng giao di�
 </h3>
 
 **Hiệu chỉnh tên thư mục task** => click vào tên của thư mục
-<p align="center">
-    <img src="src/assets/readme/Hiệu chỉnh name board.PNG" />
-</p>
 
 **Xóa thư mục task** => click vào icon Delete
 
